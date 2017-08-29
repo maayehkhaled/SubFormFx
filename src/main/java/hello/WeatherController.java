@@ -31,12 +31,11 @@ public class WeatherController {
         weather.setCorrect(true);
         weather.setTemp(getWeather.getCurrent().getTemp_c());
         System.err.println(weather.getCity());
-        CharSequence nameseq=name;
-        if(StringUtils.isAllEmpty(getWeather.getCurrent().getTemp_c())||StringUtils.isNumeric(nameseq)||StringUtils.isBlank(nameseq) || !StringUtils.isAlpha(nameseq)){
+        if (StringUtils.isAllEmpty(getWeather.getCurrent().getTemp_c()) || StringUtils.isNumeric(name) || StringUtils.isBlank(name) || !StringUtils.isAlpha(name)) {
             throw new WeatherException("Invalid Country/city name requested");
 
         }
-        if (StringUtils.isNumeric(weather.getCity())||StringUtils.isAllEmpty(weather.getCity())) { 
+        if (StringUtils.isNumeric(weather.getCity()) || StringUtils.isAllEmpty(weather.getCity())) {
             throw new WeatherException("Invalid Country/city name requested");
         }
         return new ResponseEntity<Weather>(weather, HttpStatus.OK);
@@ -50,5 +49,10 @@ public class WeatherController {
         return new ResponseEntity<>(error, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/weather/", method = RequestMethod.GET)
+    @ResponseBody
+    public void getEmpty(String name) throws WeatherException {
+        throw new WeatherException("This Service Does not Exist");
 
+    }
 }
