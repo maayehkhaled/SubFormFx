@@ -5,18 +5,31 @@ package hello;
  */
 public class Weather {
 
-    private final long id;
-    private final String city;
-    private final String temp;
-    private final boolean correct;
+    private long id;
+    private String city;
+    private String temp;
+    private boolean correct;
 
-    public Weather(long id, String city,String temp,boolean correct) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public void setCity(String city) {
         this.city = city;
-        this.temp=temp;
-        this.correct=correct;
+    }
+
+    public void setTemp(String temp) {
+        this.temp = temp;
+    }
+
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
+    }
+
+    public Weather() {
 
     }
+
 
     public String getTemp() {
         return temp;
@@ -29,6 +42,7 @@ public class Weather {
     public String getCity() {
         return city;
     }
+
     public boolean isCorrect() {
         return correct;
     }
