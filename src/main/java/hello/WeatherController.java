@@ -49,7 +49,7 @@ public class WeatherController {
         return new ResponseEntity<>(error, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/weather/", method = RequestMethod.GET)
+    @RequestMapping(value = "/weather")
     @ResponseBody
     public void getEmpty(String name) throws WeatherException {
         throw new WeatherException("This Service Does not Exist");
