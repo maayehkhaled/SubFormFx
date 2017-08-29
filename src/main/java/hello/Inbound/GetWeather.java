@@ -10,6 +10,11 @@ public class GetWeather {
 
     private Current current;
 
+    private String error;
+
+    public void setError(String error) {
+        this.error = error;
+    }
     public Current getCurrent() {
         return current;
     }
@@ -24,5 +29,10 @@ public class GetWeather {
                 "   \"current\":{" + current + "}" +
                 "   \"forecast\":{}";
 
+    }
+
+    public String getError(){
+
+        return "{\"error\":{\"code\":1006,\"message\":\""+error+"\"}}";
     }
 }

@@ -19,7 +19,13 @@ public class WeatherController {
     public Weather getWeather(@PathVariable("cityName") String name) {
         RestTemplate restTemplate = new RestTemplate();
         GetWeather getWeather = restTemplate.getForObject("http://api.apixu.com/v1/forecast.json?key=a885ea0a353f436dbdf180550172908&q=" + name, GetWeather.class);
-        return new Weather(counter.incrementAndGet(), name, getWeather.getCurrent().getTemp_c());
+        if(getWeather.getCurrent().getTemp_c()!=null){
+
+        }else {
+            name=getWeather.getError();
+        }
+        return new Weather(counter.incrementAndGet(), name, getWeather.getCurrent().getTemp_c(),true);
         //return "your Variable is "+name;
     }
+
 }
