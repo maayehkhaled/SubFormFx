@@ -44,13 +44,13 @@ public class WeatherController {
         return new ResponseEntity<Weather>(weather, HttpStatus.OK);
     }
 
-    @ExceptionHandler(WeatherException.class)
-    public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
-        ErrorResponse error = new ErrorResponse();
-        error.setErrorCode(HttpStatus.PRECONDITION_FAILED.value());
-        error.setMessage(ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.OK);
-    }
+//    @ExceptionHandler(WeatherException.class)
+//    public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
+//        ErrorResponse error = new ErrorResponse();
+//        error.setErrorCode(HttpStatus.PRECONDITION_FAILED.value());
+//        error.setMessage(ex.getMessage());
+//        return new ResponseEntity<>(error, HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/weather")
     @ResponseBody
@@ -66,12 +66,12 @@ public class WeatherController {
         System.err.println("Starting the Post Request");
         System.out.println(jsonObject.getJSONObject("request").getJSONObject("intent").getJSONObject("slots").getJSONObject("cityName").getString("value"));
 
-        String cityName=null;
+        String cityName = null;
         try {
 
 
-           cityName = jsonObject.getJSONObject("request").getJSONObject("intent").getJSONObject("slots").getJSONObject("cityName").getString("value");
-        }catch (JSONException ex){
+            cityName = jsonObject.getJSONObject("request").getJSONObject("intent").getJSONObject("slots").getJSONObject("cityName").getString("value");
+        } catch (JSONException ex) {
             System.err.println(ex.getMessage());
         }
         System.err.println(cityName);
@@ -92,4 +92,31 @@ public class WeatherController {
         return new ResponseEntity<Weather>(weather, HttpStatus.OK);
 
     }
+
+
+    @RequestMapping(value = "/weathers", method = RequestMethod.POST)
+    public ResponseEntity<ThirdPartyResponse> postWeathers(@RequestBody String request)  {
+        JSONObject jsonObject = new JSONObject(request);
+        System.err.println("Starting the Post Request");
+        System.out.println(jsonObject.getJSONObject("request").getJSONObject("intent").getJSONObject("slots").getJSONObject("cityName").getString("value"));
+
+        String cityName = null;
+        try {
+
+
+            cityName = jsonObject.getJSONObject("request").getJSONObject("intent").getJSONObject("slots").getJSONObject("cityName").getString("value");
+        } catch (JSONException ex) {
+            //System.err.println(ex.getMessage());
+        }
+        System.err.println(cityName);
+        RestTemplate restTemplate = new RestTemplate();
+        GetWeather getWeather = restTemplate.getForObject("http://api.apixu.com/v1/forecast.json?key=a885ea0a353f436dbdf180550172908&q=" + cityName, GetWeather.class);
+        ThirdPartyResponse thirdPartyResponse = new ThirdPartyResponse();
+        System.out.println(getWeather.getCurrent().getTemp_c());
+        thirdPartyResponse.response.outputSpeech.Text="The Temperature for "+ cityName +"is "+getWeather.getCurrent().getTemp_c()+" celsius";
+        System.err.println(thirdPartyResponse.response.outputSpeech.Text);
+        return new ResponseEntity<>(thirdPartyResponse, HttpStatus.OK);
+
+    }
+
 }

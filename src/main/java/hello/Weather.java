@@ -5,8 +5,10 @@ package hello;
  */
 public class Weather {
 
+
+
     private long id;
-    private String city;
+    private String cityName;
     private String temp;
     private boolean correct;
 
@@ -15,7 +17,7 @@ public class Weather {
     }
 
     public void setCity(String city) {
-        this.city = city;
+        this.cityName = city;
     }
 
     public void setTemp(String temp) {
@@ -40,7 +42,7 @@ public class Weather {
     }
 
     public String getCity() {
-        return city;
+        return cityName;
     }
 
     public boolean isCorrect() {
