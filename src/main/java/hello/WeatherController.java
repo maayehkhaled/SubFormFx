@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.util.UriComponentsBuilder;
 
 
 import java.util.concurrent.atomic.AtomicLong;
@@ -113,8 +112,8 @@ public class WeatherController {
         GetWeather getWeather = restTemplate.getForObject("http://api.apixu.com/v1/forecast.json?key=a885ea0a353f436dbdf180550172908&q=" + cityName, GetWeather.class);
         ThirdPartyResponse thirdPartyResponse = new ThirdPartyResponse();
         System.out.println(getWeather.getCurrent().getTemp_c());
-        thirdPartyResponse.response.outputSpeech.Text="The Temperature for "+ cityName +"is "+getWeather.getCurrent().getTemp_c()+" celsius";
-        System.err.println(thirdPartyResponse.response.outputSpeech.Text);
+        thirdPartyResponse.response.outputSpeech.SSML ="<speak>The Temperature for "+ cityName +"is "+getWeather.getCurrent().getTemp_c()+" celsius</speak>";
+        System.err.println(thirdPartyResponse.response.outputSpeech.SSML);
         return new ResponseEntity<>(thirdPartyResponse, HttpStatus.OK);
 
     }

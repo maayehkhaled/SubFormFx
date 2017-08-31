@@ -68,8 +68,8 @@ class SessionAttributes {
 }
 
 class OutputSpeech {
-    String Type = "PlainText";
-    String Text;
+    String Type = "\"PlainText\"";
+    String SSML;
 
     public String getType() {
         return Type;
@@ -79,19 +79,19 @@ class OutputSpeech {
         Type = type;
     }
 
-    public String getText() {
-        return Text;
+    public String getSSML() {
+        return SSML;
     }
 
-    public void setText(String text) {
-        Text = text;
+    public void setSSML(String SSML) {
+        this.SSML = SSML;
     }
 }
 
 class Card {
-    String Content;
-    String title;
-    String Type;
+    String Content="";
+    String title="";
+    String Type="";
 
     public String getContent() {
         return Content;
